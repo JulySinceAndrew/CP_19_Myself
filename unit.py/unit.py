@@ -1,4 +1,4 @@
-# ***************************全局参数定义**************************************
+# ***************************The Define of Global Parameters**************************************
 Inf=9999999
 
 BYTE=1
@@ -27,48 +27,177 @@ DEFENCE_ATTACK=33
 
 #******************************************************************************
 
-#************************************基类**************************************
+#************************************Basic Class**************************************
 class Building(object):
     def __init__(self,time,basic_hp,unlock_time,basic_source,basic_building_ability):
-        self.HP=basic_hp*(0.5+0.5*time)
-        self.Time=unlock_time
-        self.Source=basic_source*(0.5+0.5*time)
-        self.Building_Ability=basic_building_ability*(0.5+0.5*time)
+        self.__HP=basic_hp*(0.5+0.5*time)
+        self.__Time=unlock_time
+        self.__Source=basic_source*(0.5+0.5*time)
+        self.__Building_Ability=basic_building_ability*(0.5+0.5*time)
+
+    @property
+    def HP(self):
+        return self.__HP
+    @HP.setter
+    def HP(self,hp):
+        #some condition
+        self.__HP=hp
+
+    @property
+    def Time(self):
+        return self.__Time
+    @Time.setter
+    def Time(self,time):
+        #some condition
+        self.__Time=time
+
+    @property
+    def Source(self):
+        return self.__Source
+    @Source.setter
+    def Source(self,source):
+        #some conditon here
+        self.__Source=source
+
+    @property
+    def Building_Ability(self):
+        return self.__Building_Ability
+    @Building_Ability.setter
+    def Building_Ability(self,b):
+        #some condition here
+        self.__Building_Ability=b
+
 
 class Produce_Building(Building):
     def __init__(self,time,basic_hp,unlock_time,basic_source,basic_building_ability,produce_range,produce_cd,produce_unit):
-        self.Produce_Range=produce_range
-        self.Produce_CD=produce_cd
-        self.Produce_Unit=produce_unit
+        self.__Produce_Range=produce_range
+        self.__Produce_CD=produce_cd
+        self.__Produce_Unit=produce_unit
         Building.__init__(self,time,basic_hp,unlock_time,basic_source,basic_building_ability)
+
+    @property
+    def Produce_Range(self):
+        return self.__Produce_Range
+    @Produce_Range.setter
+    def Produce_Range(self,range):
+        #some condition here
+        self.__Produce_Range=range
+
+    @property
+    def Produce_CD(self):
+        return self.__Produce_CD
+    @Produce_CD.setter
+    def Produce_CD(self,cd):
+        #some condition here
+        self.__Produce_CD=cd
+
+    @property
+    def Produce_Unit(self):
+        return self.__Produce_Unit
+    @Produce_Unit.setter
+    def Produce_Unit(self,unit):
+        #some condition here
+        self.__Produce_Unit=unit
 
 class Defence_Building(Building):
     def __init__(self,time,basic_hp,unlock_time,basic_source,basic_building_ability,attack_cd,attack_range,attack_hurt,attack_target,aoe):
-        self.Attack_CD=attack_cd
-        self.Attack_Range=attack_range
-        self.Attack_Target=attack_target
-        self.Attack_Hurt=attack_hurt
-        self.AOE=aoe
+        self.__Attack_CD=attack_cd
+        self.__Attack_Range=attack_range
+        self.__Attack_Target=attack_target
+        self.__Attack_Hurt=attack_hurt
+        self.__AOE=aoe
         Building.__init__(self,basic_hp,time,unlock_time,basic_source,basic_building_ability)
+
+    @property
+    def Attack_CD(self):
+        return self.__Attack_CD
+    @Attack_CD.setter
+    def Attack_CD(self,cd):
+        #some condition here
+        self.__Attack_CD=cd
+
+    @property
+    def Attack_Range(self):
+        return self.__Attack_Range
+    @Attack_Range.setter
+    def Attack_Range(self,range):
+        #some condition here
+        self.__Attack_Range=range
+
+    @property
+    def Attack_Target(self):
+        return self.__Attack_Target
+    @Attack_Target.setter
+    def Attack_Target(self,target):
+        #some condition here
+        self.__Attack_Target=target
+
+    @property
+    def AOE(self):
+        return self.AOE
+    @AOE.setter
+    def AOE(self,aoe):
+        #some condition here
+        self.__AOE=aoe
+
 
 class Unit(object):
     def __init__(self,Type,time,behaviour_mode,basic_hp,basic_attack_hurt,attack_range,move_speed):
-        self.Type=Type
-        self.HP=basic_hp*(0.5*time+0.5)
-        self.Behaviour_Mode=behaviour_mode
-        self.Attack_Hurt=basic_attack_hurt*(0.5+0.5*basic_hp)
-        self.Attack_Range=attack_range
-        self.Move_Speed=move_speed
+        self.__Type=Type
+        self.__HP=basic_hp*(0.5*time+0.5)
+        self.__Behaviour_Mode=behaviour_mode
+        self.__Attack_Hurt=basic_attack_hurt*(0.5+0.5*basic_hp)
+        self.__Attack_Range=attack_range
+        self.__Move_Speed=move_speed
+
+    @property
+    def HP(self):
+        return self.__HP
+    @HP.setter
+    def HP(self, hp):
+        # some condition
+        self.__HP = hp
+
+    @property
+    def Type(self):
+        return self.__Type
+    @property
+    def Behaviour_Mode(self):
+        return self.__Behaviour_Mode
+
+    @property
+    def Attack_Hurt(self):
+        return self.__Attack_Hurt
+    @Attack_Hurt.setter
+    def Attack_Hurt(self,hurt):
+        #some condition here
+        self.__Attack_Hurt=hurt
+
+    @property
+    def Attack_Range(self):
+        return self.__Attack_Range
+    @Attack_Range.setter
+    def Attack_Range(self,range):
+        #some condition here
+        self.__Attack_Range=range
+
+    @property
+    def Move_Speed(self):
+        return self.__Move_Speed
+    @Move_Speed.setter
+    def Move_Speed(self,speed):
+        #some condition here
+        self.Move_Speed=speed
 
 #**********************************************************************************************************
 
-#********************************************资源建筑***********************************
+#********************************************Resource Building***********************************
 class Resource_Building(object):
     def __init__(self,time):
         self.HP=100*(0.5+time*0.5)
         self.Get_Resource_Value=50
 
-#******************************************生产建筑*******************************************
+#******************************************Produce Building******************************************
 
 class Shannon(Produce_Building):
     def __init__(self,time):
@@ -103,6 +232,7 @@ class Tony_Stark(Produce_Building):
         Produce_Building.__init__(self,time,1000,AI,1000,80,10,10,ULTRON)
 #******************************************************************************************************
 
+#*****************************************Defence Building**************************************************
 class Bool(Defence_Building):
     def __init__(self,time):
         Defence_Building.__init__(self,time,150,BYTE,150,15,1,20,16,DATA,0)
@@ -153,6 +283,7 @@ class Hawkin(Defence_Building):
 
 #**************************************************************************************************************
 
+#************************************************Unit***************************************
 class Bytestream(Unit):
     def __init__(self,time):
         Unit.__init__(self,DATA,time,ATTACK_TOWER,10,10,8,8)
